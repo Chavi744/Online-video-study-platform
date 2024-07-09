@@ -1,97 +1,122 @@
-// src/RegistrationForm.js
-import React, { useState } from 'react';
-import './RegistrationForm.css';
+import React, { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { StudentContext } from './Pages/StudentContext';
+// import './RegistrationForm.css';
 
-function RegistrationForm() {
+const RegistrationForm = () => {
+  const { setStudentData } = useContext(StudentContext);
   const [formData, setFormData] = useState({
-    name: '',
-    studentNumber: '',
+    firstName: '',
+    lastName: '',
     email: '',
+    studentNumber: '',
+    phone: '',
+    birthDate: '',
+    password: '',
+    confirmPassword: '',
+    profileImage: null,
+    role: 'student', // הוספת שדה תפקיד
   });
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
-  const [errors, setErrors] = useState({
-    name: false,
-    studentNumber: false,
-    email: false,
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-
-    if (value.trim() !== '') {
-      setErrors({
-        ...errors,
-        [name]: false,
-      });
-    }
-  };
-
-  const validateForm = () => {
-    const newErrors = {
-      name: formData.name.trim() === '',
-      studentNumber: formData.studentNumber.trim() === '',
-      email: formData.email.trim() === '',
-    };
-    setErrors(newErrors);
-    return !Object.values(newErrors).some((error) => error);
+  const validate = () => {
+    const errors = {};
+    if (!formData.firstName) errors.firstName = 'First name is required';
+    if (!formData.lastName) errors.lastName = 'Last name is required';
+    if (!formData.email) errors.email = 'Email is required';
+    if (!/\S+@\S+\.\S+/.test(formData.email)) errors.email = 'Email format is invalid';
+    if (!formData.studentNumber) errors.studentNumber = 'Student number is required';
+    if (isNaN(formData.studentNumber)) errors.studentNumber = 'Student number must be numeric';
+    if (!formData.phone) errors.phone = 'Phone number is required';
+    if (!formData.birthDate) errors.birthDate = 'Birth date is required';
+    if (!formData.password) errors.password = 'Password is required';
+    if (formData.password.length < 8) errors.password = 'Password must be at least 8 characters long';
+    if (!/[a-zA-Z]/.test(formData.password) || !/\d/.test(formData.password))
+      errors.password = 'Password must include letters and numbers';
+    if (formData.password !== formData.confirmPassword) errors.confirmPassword = 'Passwords do not match';
+    return errors;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      console.log('Form submitted successfully!', formData);
-      // You can send formData to your backend here
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+    } else {
+      setStudentData(formData);
+      localStorage.setItem('studentData', JSON.stringify(formData)); // שמירת הנתונים ב-Local Storage
+      navigate('/student-area');
     }
   };
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  useEffect(() => {
+    const storedData = localStorage.getItem('studentData');
+    if (storedData) {
+      setFormData(JSON.parse(storedData));
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <h1>Registration Form</h1>
+    <div>
+      <h2>Register</h2>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className={errors.name ? 'error' : ''}
-          />
-          {errors.name && <span className="error-message">Name is required</span>}
+        <div>
+          <label>First Name</label>
+          <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} />
+          {errors.firstName && <p>{errors.firstName}</p>}
         </div>
-        <div className="form-group">
-          <label htmlFor="studentNumber">Student Number</label>
-          <input
-            type="text"
-            id="studentNumber"
-            name="studentNumber"
-            value={formData.studentNumber}
-            onChange={handleChange}
-            className={errors.studentNumber ? 'error' : ''}
-          />
-          {errors.studentNumber && <span className="error-message">Student Number is required</span>}
+        <div>
+          <label>Last Name</label>
+          <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} />
+          {errors.lastName && <p>{errors.lastName}</p>}
         </div>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className={errors.email ? 'error' : ''}
-          />
-          {errors.email && <span className="error-message">Email is required</span>}
+        <div>
+          <label>Email</label>
+          <input type="email" name="email" value={formData.email} onChange={handleChange} />
+          {errors.email && <p>{errors.email}</p>}
         </div>
-        <button type="submit">Register</button>
+        <div>
+          <label>Student Number</label>
+          <input type="text" name="studentNumber" value={formData.studentNumber} onChange={handleChange} />
+          {errors.studentNumber && <p>{errors.studentNumber}</p>}
+        </div>
+        <div>
+          <label>Phone Number</label>
+          <input type="text" name="phone" value={formData.phone} onChange={handleChange} />
+          {errors.phone && <p>{errors.phone}</p>}
+        </div>
+        <div>
+          <label>Birth Date</label>
+          <input type="date" name="birthDate" value={formData.birthDate} onChange={handleChange} />
+          {errors.birthDate && <p>{errors.birthDate}</p>}
+        </div>
+        <div>
+          <label>Password</label>
+          <input type="password" name="password" value={formData.password} onChange={handleChange} />
+          {errors.password && <p>{errors.password}</p>}
+        </div>
+        <div>
+          <label>Confirm Password</label>
+          <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
+          {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        </div>
+        <div>
+          <label>status</label>
+          <select name="role" value={formData.role} onChange={handleChange}>
+            <option value="student">Student</option>
+            <option value="lecturer">Lecturer</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <button type="submit">sign up</button>
       </form>
     </div>
   );
-}
+};
 
 export default RegistrationForm;

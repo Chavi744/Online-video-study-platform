@@ -1,9 +1,6 @@
-// import { Formik, Form, Field, ErrorMessage } from 'formik';
-// import * as Yup from 'yup';
-// import { NavLink } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import '../Pages/Styles.css';
-import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -11,40 +8,29 @@ const Login = () => {
   const [emailMessage, setEmailMessage] = useState('');
   const [passwordMessage, setPasswordMessage] = useState('');
   const [formMessage, setFormMessage] = useState('');
+  const [formData, setFormData] = useState({ role: 'student' });
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
-    if (email === undefined || email === null) return 'Email cannot be empty.';
+    if (!email) return 'Email cannot be empty.';
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return 'Invalid email address.';
-    }
-    return 'Email is valid!';
+    return emailRegex.test(email) ? 'Email is valid!' : 'Invalid email address.';
   };
 
   const validatePassword = (password) => {
-    if (password === undefined || password === null) return 'Password cannot be empty.';
+    if (!password) return 'Password cannot be empty.';
     const minLength = 8;
     const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);
     const hasNumber = /[0-9]/.test(password);
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
-    if (password.length < minLength) {
-      return `Password must be at least ${minLength} characters long.`;
-    }
-    if (!hasUpperCase) {
-      return 'Password must contain at least one uppercase letter.';
-    }
-    if (!hasLowerCase) {
-      return 'Password must contain at least one lowercase letter.';
-    }
-    if (!hasNumber) {
-      return 'Password must contain at least one number.';
-    }
-    if (!hasSpecialChar) {
-      return 'Password must contain at least one special character.';
-    }
+    if (password.length < minLength) return `Password must be at least ${minLength} characters long.`;
+    if (!hasUpperCase) return 'Password must contain at least one uppercase letter.';
+    if (!hasLowerCase) return 'Password must contain at least one lowercase letter.';
+    if (!hasNumber) return 'Password must contain at least one number.';
+    if (!hasSpecialChar) return 'Password must contain at least one special character.';
+
     return 'Password is valid!';
   };
 
@@ -60,30 +46,44 @@ const Login = () => {
     setPasswordMessage(validatePassword(newPassword));
   };
 
-  const handleSubmit = (e, userType) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     const emailValidation = validateEmail(email);
     const passwordValidation = validatePassword(password);
+
     if (emailValidation === 'Email is valid!' && passwordValidation === 'Password is valid!') {
-      setFormMessage(`Form is valid. Logging in as ${userType}...`);
-      // Submit form logic here
+      setFormMessage(`Form is valid. Logging in as ${formData.role}...`);
+      localStorage.setItem('user', JSON.stringify({ email, role: formData.role }));
+
+      if (formData.role === 'student') navigate('/student-area');
+      else if (formData.role === 'admin') navigate('/admin-area');
+      else if (formData.role === 'lecturer') navigate('/lecturer-area');
     } else {
       setFormMessage('Please correct the errors before submitting.');
     }
   };
 
-  const handleForgotPassword  = () => {
+  const handleForgotPassword = ()  => {
+    
     navigate('/forgot-password');
   };
 
-  const handleSignIN  = () => {
+  const handleSignUp = () => {
     navigate('/sign-in');
   };
 
   return (
     <div className="form-container">
       <h2>Login</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Email:</label>
           <input
@@ -105,19 +105,22 @@ const Login = () => {
           <p className="message">{passwordMessage}</p>
         </div>
         <div className="form-group">
-          <button type="button" onClick={(e) => handleSubmit(e, 'Admin')}>Sign in as Admin</button>
-          <button type="button" onClick={(e) => handleSubmit(e, 'Lecturer')}>Sign in as Lecturer</button>
-          <button type="button" onClick={(e) => handleSubmit(e, 'Student')}>Sign in as Student</button>
+          <label>Role:</label>
+          <select name="role" value={formData.role} onChange={handleChange}>
+            <option value="student">Student</option>
+            <option value="admin">Admin</option>
+            <option value="lecturer">Lecturer</option>
+          </select>
         </div>
         <div className="form-group">
-          <a  onClick={handleForgotPassword}>Forgot Password?</a>
-          <a  onClick={handleForgotPassword}>To sign up</a>
+          <a onClick={handleForgotPassword}>Forgot Password?</a>
+          <a onClick={handleSignUp}>Sign Up</a>
         </div>
         <p className="form-message">{formMessage}</p>
+        <button type="submit">Login</button>
       </form>
     </div>
   );
 };
-
 
 export default Login;
