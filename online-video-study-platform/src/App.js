@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './App.css';
 import ConfirmationScreen from './components/RegistrationConfirmation/Confirmation';
 import logo from './logo1.png';
+import RegistrationForm from './RegistrationForm';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 function App() {
   // const [studentName, setStudentName] = useState('John Doe');
@@ -12,20 +14,24 @@ function App() {
   const [totalCost, setTotalCost] = useState(0);
 
   return (
-    // <Router>
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} alt="Logo" className="login-logo" />
-        </header>
-
-        <main>
-          <ConfirmationScreen 
-              studentName={studentName} 
-              selectedCourses={selectedCourses} 
-              totalCost={totalCost} 
+  <Router>
+    <div className="App">
+      <Routes>
+          <Route
+            path="/"
+            element={
+              <div>
+                <h1>Welcome to Our Site</h1>
+                <Link to="/register">
+                  <button>Go to Registration Form</button>
+                </Link>
+              </div>
+            }
           />
-        </main>
-      </div>
+          <Route path="/register" element={<RegistrationForm />} />
+        </Routes>
+    </div>
+    </Router>
   );
 }
 
