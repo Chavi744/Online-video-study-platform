@@ -14,7 +14,7 @@ const Login = () => {
   const validateEmail = (email) => {
     if (!email) return 'Email cannot be empty.';
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email) ? 'Email is valid!' : 'Invalid email address.';
+    return emailRegex.test(email) ? '' : 'Invalid email address.';
   };
 
   const validatePassword = (password) => {
@@ -31,7 +31,7 @@ const Login = () => {
     if (!hasNumber) return 'Password must contain at least one number.';
     if (!hasSpecialChar) return 'Password must contain at least one special character.';
 
-    return 'Password is valid!';
+    return '';
   };
 
   const handleEmailChange = (e) => {
@@ -59,7 +59,7 @@ const Login = () => {
     const emailValidation = validateEmail(email);
     const passwordValidation = validatePassword(password);
 
-    if (emailValidation === 'Email is valid!' && passwordValidation === 'Password is valid!') {
+    if (!emailValidation && !passwordValidation) {
       setFormMessage(`Form is valid. Logging in as ${formData.role}...`);
       localStorage.setItem('user', JSON.stringify({ email, role: formData.role }));
 
@@ -71,8 +71,7 @@ const Login = () => {
     }
   };
 
-  const handleForgotPassword = ()  => {
-    
+  const handleForgotPassword = () => {
     navigate('/forgot-password');
   };
 
@@ -83,41 +82,49 @@ const Login = () => {
   return (
     <div className="form-container">
       <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form-content">
         <div className="form-group">
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={handleEmailChange}
-            placeholder="Enter your email"
-          />
+          <label htmlFor="email">Email:</label>
+          <div className="input-wrapper">
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={handleEmailChange}
+              placeholder="Enter your email"
+            />
+            <span className="icon">@</span>
+          </div>
           <p className="message">{emailMessage}</p>
         </div>
         <div className="form-group">
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={handlePasswordChange}
-            placeholder="Enter your password"
-          />
+          <label htmlFor="password">Password:</label>
+          <div className="input-wrapper">
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={handlePasswordChange}
+              placeholder="Enter your password"
+            />
+            <span className="icon">&#128274;</span>
+          </div>
           <p className="message">{passwordMessage}</p>
         </div>
         <div className="form-group">
-          <label>Role:</label>
-          <select name="role" value={formData.role} onChange={handleChange}>
+          <label htmlFor="role">Role:</label>
+          <select name="role" id="role" value={formData.role} onChange={handleChange}>
             <option value="student">Student</option>
             <option value="admin">Admin</option>
             <option value="lecturer">Lecturer</option>
           </select>
         </div>
-        <div className="form-group">
-          <a onClick={handleForgotPassword}>Forgot Password?</a>
-          <a onClick={handleSignUp}>Sign Up</a>
+        <div className="form-links">
+          <a onClick={handleForgotPassword} className="link">Forgot Password?</a>
+          <a onClick={handleSignUp} className="link">Sign Up</a>
         </div>
         <p className="form-message">{formMessage}</p>
-        <button type="submit">Login</button>
+        <button type="submit" className="submit-button">Login</button>
       </form>
     </div>
   );

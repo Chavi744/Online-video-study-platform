@@ -1,27 +1,34 @@
-// src/pages/CourseRegistration.js
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import CategoryList from '../Components/CategoryList';
 import CourseList from '../Components/CourseList';
 import SelectedCourses from '../Components/SelectedCourses';
 
+const coursesData = {
+  'Math': [
+    { id: 1, name: 'Algebra', details: 'Basics of algebra.' },
+    { id: 2, name: 'Calculus', details: 'Introduction to calculus.' },
+    { id: 3, name: 'Statistics', details: 'Fundamental concepts in statistics.' },
+  ],
+  'English': [
+    { id: 4, name: 'Grammar', details: 'English grammar rules.' },
+    { id: 5, name: 'Literature', details: 'Study of English literature.' },
+    { id: 6, name: 'Writing', details: 'Techniques for writing essays.' },
+  ],
+  'Computer Science': [
+    { id: 7, name: 'Programming', details: 'Introduction to programming.' },
+    { id: 8, name: 'Web Development', details: 'Basics of web development.' },
+    { id: 9, name: 'Data Science', details: 'Introduction to data science.' },
+  ],
+};
+
 const CourseRegistration = () => {
-  const [courses] = useState([
-    { id: 1, name: 'Introduction to Computer Science', details: 'Basic concepts of computer science, algorithms, and programming.' },
-    { id: 2, name: 'Data Structures and Algorithms', details: 'In-depth study of data structures, algorithms, and their applications.' },
-    { id: 3, name: 'Web Development', details: 'Introduction to HTML, CSS, JavaScript, and building responsive web pages.' },
-    { id: 4, name: 'Database Systems', details: 'Design, implementation, and management of database systems using SQL.' },
-    { id: 5, name: 'Machine Learning', details: 'Basic principles and techniques of machine learning and data analysis.' },
-    { id: 6, name: 'Operating Systems', details: 'Study of operating system concepts, processes, threads, and memory management.' },
-    { id: 7, name: 'Software Engineering', details: 'Principles of software design, development, testing, and maintenance.' },
-    { id: 8, name: 'Network Security', details: 'Introduction to network security principles, protocols, and cryptography.' },
-    { id: 9, name: 'Artificial Intelligence', details: 'Basic concepts and applications of artificial intelligence and intelligent agents.' },
-    { id: 10, name: 'Mobile App Development', details: 'Design and development of mobile applications for Android and iOS.' },
-  ]);
-
-
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedCourses, setSelectedCourses] = useState(() => {
     const savedCourses = localStorage.getItem('selectedCourses');
     return savedCourses ? JSON.parse(savedCourses) : [];
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem('selectedCourses', JSON.stringify(selectedCourses));
@@ -33,14 +40,28 @@ const CourseRegistration = () => {
     }
   };
 
-  const removeCourse = (id) => {
-    setSelectedCourses(selectedCourses.filter(course => course.id !== id));
+  const goToSelectedCoursesPage = () => {
+    navigate('/selected-courses');
   };
 
   return (
     <div className="course-registration">
-      <CourseList courses={courses} addCourse={addCourse} />
-      <SelectedCourses selectedCourses={selectedCourses} removeCourse={removeCourse} />
+      <CategoryList
+        categories={Object.keys(coursesData)}
+        setSelectedCategory={setSelectedCategory}
+      />
+      {selectedCategory && (
+        <>
+          <div style={{ margin: '20px 0' }}></div>
+          <CourseList
+            courses={coursesData[selectedCategory]}
+            addCourse={addCourse}
+          />
+        </>
+      )}
+      <button className="view-selected-courses-button" onClick={goToSelectedCoursesPage}>
+        View Selected Courses
+      </button>
     </div>
   );
 };

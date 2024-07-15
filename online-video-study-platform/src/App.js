@@ -8,14 +8,20 @@ import StudentArea from './Components/StudentArea';
 import AdminArea from './Components/AdminArea';
 import LecturerArea from './Components/LecturerArea';
 import { StudentProvider } from './Pages/StudentContext';
+import CourseRegistration from './Pages/CourseRegistration';
+import SelectedCourses from './Components/SelectedCourses';
 
 function App() {
   return (
+    
     <StudentProvider>
+     
       <Router>
         <Routes>
         <Route path="/" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/Course-Registration"  element={<CourseRegistration/>} />
+          <Route path="/selected-courses" element={<SelectedCourses/>} />
           <Route path="/sign-in" element={<RegistrationForm />} />
           <Route path="/student-area" element={<StudentArea />} />
           <Route path="/admin-area" element={<AdminArea />} />

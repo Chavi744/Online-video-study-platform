@@ -4,12 +4,12 @@ import React from 'react';
 const CourseList = ({ courses, addCourse }) => {
   return (
     <div className="course-list">
-      <h2>Available Courses</h2>
+      <h2>Select a Course</h2>
       <ul>
-        {courses.map(course => (
+        {courses && courses.map(course => (
           <li key={course.id}>
-            {course.name}
-            <button onClick={() => addCourse(course)}>Add course</button>
+            {course.name} - {course.details}
+            <button onClick={() => addCourse(course)}>Add</button>
           </li>
         ))}
       </ul>
