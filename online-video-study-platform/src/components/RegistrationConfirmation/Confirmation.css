@@ -1,0 +1,64 @@
+.confirmation-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    text-align: center;
+  }
+  
+  .confirmation-container h1 {
+    color: #00bdad;
+    margin-bottom: 20px;
+  }
+  
+  .confirmation-details {
+    margin-bottom: 20px;
+  }
+  
+  .confirmation-details p {
+    color: #00bdad;
+  }
+
+  .confirmation-details h2 {
+    color: #00bdad;
+  }
+  
+  .confirmation-details ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .confirmation-details ul li {
+    background-color: #eee;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .confirmation-details h3 {
+    color: #00bdad;
+  }
+  
+  .confirmation-footer {
+    margin-top: 20px;
+  }
+  
+  .confirmation-footer p {
+    color: #00bdad;
+  }
+  
+  .confirmation-footer button {
+    background-color: #00bdad;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .confirmation-footer button:hover {
+    background-color: #009b8e;
+  }
+  
