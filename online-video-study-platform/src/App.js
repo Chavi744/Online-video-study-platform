@@ -1,32 +1,18 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Login from './Components/Login';
-import ForgotPassword from './Components/ForgotPassword';
-import RegistrationForm from './RegistrationForm';
-import StudentArea from './Components/StudentArea';
-import AdminArea from './Components/AdminArea';
-import LecturerArea from './Components/LecturerArea';
-import { StudentProvider } from './Pages/StudentContext';
-import CourseRegistration from './Pages/CourseRegistration';
-import SelectedCourses from './Components/SelectedCourses';
+import Adminlogin from './Admin/Adminlogin';
+import hat from './hat.png';
+import './App.css';
 
 function App() {
   return (
-    <StudentProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/course-registration" element={<CourseRegistration />} />
-          <Route path="/selected-courses" element={<SelectedCourses />} />
-          <Route path="/sign-in" element={<RegistrationForm />} />
-          <Route path="/student-area" element={<StudentArea />} />
-          <Route path="/admin-area" element={<AdminArea />} />
-          <Route path="/lecturer-area" element={<LecturerArea />} />
-        </Routes>
-      </Router>
-    </StudentProvider>
-  );
-}
-
+    <div className="App">
+      <h1>Welcome to CoursMart!</h1>
+      <div className="h3-container">
+        <h3>
+        <img src={hat} alt="hat" className="hat" />
+          Join our great team-
+        </h3>
+      </div>
+      <Adminlogin />
+    </div>
 export default App;
