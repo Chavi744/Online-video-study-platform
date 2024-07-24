@@ -12,6 +12,12 @@ const ForgotPassword = () => {
     setEmail(e.target.value);
   };
 
+  const validateEmail = (email) => {
+    if (email === undefined || email === null) return 'Email cannot be empty.';
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return 'Invalid email address.';
+    }}
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email) {
