@@ -1,4 +1,3 @@
-// src/Components/LecturerArea.js
 import React from 'react';
 import '../PersonalArea.css';
 

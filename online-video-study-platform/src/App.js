@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Login from './Components/Login';
@@ -13,20 +12,18 @@ import SelectedCourses from './Components/SelectedCourses';
 
 function App() {
   return (
-    
     <StudentProvider>
-     
       <Router>
         <Routes>
-        <Route path="/" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/Course-Registration"  element={<CourseRegistration/>} />
-          <Route path="/selected-courses" element={<SelectedCourses/>} />
+          <Route path="/course-registration" element={<CourseRegistration />} />
+          <Route path="/selected-courses" element={<SelectedCourses />} />
           <Route path="/sign-in" element={<RegistrationForm />} />
           <Route path="/student-area" element={<StudentArea />} />
           <Route path="/admin-area" element={<AdminArea />} />
-          <Route path="/lecturer-area" element={<LecturerArea />} />       
-           </Routes>
+          <Route path="/lecturer-area" element={<LecturerArea />} />
+        </Routes>
       </Router>
     </StudentProvider>
   );

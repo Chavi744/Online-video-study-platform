@@ -1,6 +1,5 @@
-// src/Components/AdminArea.js
 import React from 'react';
-import '../PersonalArea.css';
+import '../PersonalArea.css'; // עיצוב הדף
 
 const AdminArea = () => {
   return (

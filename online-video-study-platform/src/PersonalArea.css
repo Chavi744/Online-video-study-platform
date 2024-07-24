@@ -1,29 +1,26 @@
-/* src/Components/PersonalArea.css */
-.personal-area {
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    text-align: center;
-  }
-  
-  .section {
-    margin-bottom: 20px;
-  }
-  
-  .section h2 {
-    margin-bottom: 10px;
-  }
-  
-  .section p {
-    margin-bottom: 10px;
-  }
-  
-  .section button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
+.user-profile {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.user-profile h2 {
+  text-align: center;
+}
+
+.profile-details p {
+  margin: 10px 0;
+}
+
+.user-profile ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.user-profile li {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
