@@ -1,28 +1,20 @@
-import logo from './logo.svg';
+import React from 'react';
+import Adminlogin from './Admin/Adminlogin';
+import hat from './hat.png';
 import './App.css';
-import RegistrationForm from './RegistrationForm';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 function App() {
   return (
-  <Router>
     <div className="App">
-      <Routes>
-          <Route
-            path="/"
-            element={
-              <div>
-                <h1>Welcome to Our Site</h1>
-                <Link to="/register">
-                  <button>Go to Registration Form</button>
-                </Link>
-              </div>
-            }
-          />
-          <Route path="/register" element={<RegistrationForm />} />
-        </Routes>
+      <h1>Welcome to CoursMart!</h1>
+      <div className="h3-container">
+        <h3>
+        <img src={hat} alt="hat" className="hat" />
+          Join our great team-
+        </h3>
+      </div>
+      <Adminlogin />
     </div>
-    </Router>
   );
 }
 
