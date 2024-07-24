@@ -8,13 +8,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height:auto;
 }
 
 .App {
   background: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  /* border-radius: 10px; */
   max-width: 400px;
   width: 100%;
   padding: 30px;
@@ -42,7 +42,7 @@ input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   box-sizing: border-box;
   font-size: 14px;
   transition: border-color 0.3s;
@@ -59,7 +59,7 @@ button {
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -77,4 +77,69 @@ button:hover {
   color: red;
   font-size: 12px;
   margin-top: 5px;
+}
+/* src/RegistrationForm.css */
+.registration-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="date"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-group input[type="radio"] {
+  margin-right: 10px;
+}
+
+.error {
+  border-color: red;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+}
+
+button {
+  width: 59%;
+  padding: 10px;
+  background-color: #28a78e;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: bolder;
+  cursor: pointer;
+  margin: 10px 20%;
+}
+
+button:hover {
+  background-color: #45a049;
 }

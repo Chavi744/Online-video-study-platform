@@ -15,7 +15,4 @@ function App() {
       </div>
       <Adminlogin />
     </div>
-  );
-}
-
 export default App;

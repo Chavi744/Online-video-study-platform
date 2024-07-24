@@ -1,0 +1,77 @@
+.manage-courses {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .manage-courses h2 {
+    text-align: center;
+  }
+  
+  .manage-courses form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .manage-courses form input, .manage-courses form textarea {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .manage-courses form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .manage-courses form button:hover {
+    background-color: #45a049;
+  }
+  
+  .courses-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .course-card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    background-color: #f9f9f9;
+    text-align: center;
+    width: 250px;
+  }
+  
+  .course-card h3 {
+    margin-top: 0;
+  }
+  
+  .course-card p {
+    font-size: 14px;
+    color: #777;
+  }
+  
+  .course-card button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .course-card button:hover {
+    background-color: #ff1a1a;
+  }
+  
