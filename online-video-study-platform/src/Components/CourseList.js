@@ -1,51 +1,27 @@
-// src/components/CourseList.js
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import './CoursesList.css';
+import CourseItem from './CourseItem';
+import '../HamburgerMenu.css'; // עיצוב הדף
+import React, { useEffect, useState } from 'react';
 
-const CoursesList = () => {
+function CourseList() {
   const [courses, setCourses] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    axios.get('/api/courses').then(response => {
-      setCourses(response.data);
-    });
+    fetch('https://example.com/api/courses')
+      .then(response => response.json())
+      .then(data => setCourses(data))
+      .catch(error => console.error('Error fetching courses:', error));
   }, []);
 
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
   return (
-    <div className="courses-list">
-      <h1>רשימת הקורסים הזמינים</h1>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/profile">Profile</Link>
-        <Link to="/manage-courses">Manage Courses</Link>
-      </nav>
-      <input 
-        type="text" 
-        placeholder="חיפוש קורסים לפי שם" 
-        value={searchTerm} 
-        onChange={handleSearch}
-      />
-      <div className="courses-grid">
-        {courses.filter(course => course.name.toLowerCase().includes(searchTerm.toLowerCase())).map(course => (
-          <div className="course-card" key={course._id}>
-            <h3>{course.name}</h3>
-            <p>{course.description}</p>
-            <p>Instructor: {course.instructor}</p>
-            <p>Students Enrolled: {course.enrolledStudents}</p>
-            <p>Level: {course.level}</p>
-            <button>Register</button>
-          </div>
+    <section id="course-list">
+      <h2>Available Courses</h2>
+      <div className="course-container">
+        {courses.map(course => (
+          <CourseItem key={course.id} course={course} />
         ))}
       </div>
-    </div>
+    </section>
   );
-};
+}
 
-export default CoursesList;
+export default CourseList;
