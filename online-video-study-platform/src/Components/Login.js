@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
-import '../Pages/Styles.css';
+import '../Styles.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -76,7 +76,7 @@ const Login = () => {
   };
 
   const handleSignUp = () => {
-    navigate('/sign-in');
+    navigate('/sign-up');
   };
 
   return (
@@ -111,14 +111,14 @@ const Login = () => {
           </div>
           <p className="message">{passwordMessage}</p>
         </div>
-        <div className="form-group">
+        {/*  <div className="form-group">
           <label htmlFor="role">Role:</label>
-          <select name="role" id="role" value={formData.role} onChange={handleChange}>
-            <option value="student">Student</option>
+         <select name="role" id="role" value={formData.role} onChange={handleChange}> 
+           <option value="student">Student</option>
             <option value="admin">Admin</option>
             <option value="lecturer">Lecturer</option>
-          </select>
-        </div>
+          </select> 
+        </div>*/}
         <div className="form-links">
           <a onClick={handleForgotPassword} className="link">Forgot Password?</a>
           <a onClick={handleSignUp} className="link">Sign Up</a>

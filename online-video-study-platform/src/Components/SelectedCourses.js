@@ -1,36 +1,29 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import SelectedCourses from '../Components/SelectedCourses';
-import '../App.css';
+import '../HamburgerMenu.css'; // עיצוב הדף
+import React from 'react';
+// import Layout from './Layout';
 
-const SelectedCoursesPage = () => {
-  const [selectedCourse, setSelectedCourses] = useState(() => {
-    const savedCourses = localStorage.getItem('selectedCourse');
-    return savedCourses ? JSON.parse(savedCourses) : [];
-  });
-  const navigate = useNavigate();
-
-  const removeCourse = (id) => {
-    const updatedCourses = selectedCourse.filter(course => course.id !== id);
-    setSelectedCourses(updatedCourses);
-    localStorage.setItem('selectedCourse', JSON.stringify(updatedCourses));
-  };
-
-  const goBack = () => {
-    navigate('/Course-Registration');
-  };
-
+function SelectedCourses({ selectedCourses }) {
   return (
-    <div className="selected-courses-page">
-      <SelectedCourses
-        selectedCourse={selectedCourse}
-        removeCourse={removeCourse}
-      />
-      <button className="back-button" onClick={goBack}>
-        Back to Course Selection
-      </button>
-    </div>
+    <section id="selected-courses">
+      <h2>Selected Courses</h2>
+      {selectedCourses.length === 0 ? (
+        <p>No courses selected. Please go back and choose your courses.</p>
+      ) : (
+        <div className="selected-course-container">
+          {selectedCourses.map(course => (
+            <div key={course.id} className="selected-course">
+              <h3>{course.title}</h3>
+              <img src={course.image} alt={course.title} />
+              <p>
+                <a href={course.link} target="_blank" rel="noopener noreferrer">Go to course</a>
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
   );
-};
+}
 
-export default SelectedCoursesPage;
+export default SelectedCourses;
+
