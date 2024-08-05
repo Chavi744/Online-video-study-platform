@@ -1,4 +1,5 @@
 import React from 'react';
+import '../HamburgerMenu.css'; // עיצוב הדף
 
 const GuestArea = () => {
   return (

@@ -2,12 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const courseMaterial = require('./models/courseMaterials'); // ייבוא הסכמה
+const courseMaterial = require('./models/courseMaterials'); 
 const ForumPost  = require('./models/ForumPost');
-const PracticeMaterial = require('./models/practiceMaterials'); // ייבוא הסכמה
-const activityMaterials = require('./models/activityMaterials'); // ייבוא הסכמה
-const user = require('./models/user'); // ייבוא המודל של המשתמש
-// const { getUserData } = require('../services/userService');
+const PracticeMaterial = require('./models/practiceMaterials'); 
+const activityMaterials = require('./models/activityMaterials'); 
+const User = require('./models/User'); 
 
 const app = express();
 const PORT = 5000;
@@ -96,23 +95,31 @@ app.post('/api/forum/:courseId', async (req, res) => {
   }
 });
 
-app.get('/api/user-data/:email', async (req, res) => {
+// נתיב לקבלת חומרי הפעילויות
+app.get('/api/activity-materials', async (req, res) => {
   try {
-    const user = await user.findOne({ email: req.params.email });
+    const activities = await activityMaterials.find();
+    res.json(activities);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching activity materials', error });
+  }
+});
+
+
+// נתיב לקבלת נתוני משתמש
+app.get('/api/personal-management/:email', async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.params.email });
     res.json(user);
   } catch (error) {
-    res.
-  
-status(500).json({ message: 'Error fetching user data', error });
+    res.status(500).json({ message: 'Error fetching user data', error });
   }
 });
 
 // פונקציה ליצירת משתמש עם רמת מוטיבציה גבוהה
 const createHighMotivationUser = async () => {
   try {
-    
-    
-const newUser = new user({
+    const newUser = new User({
       name: 'John Doe',
       email: 'john.doe@example.com',
       motivation: 9, // רמת מוטיבציה גבוהה
@@ -124,14 +131,10 @@ const newUser = new user({
 
     await newUser.save();
     console.log('User with high motivation created:', newUser);
-  } 
- 
-catch (error) {
+  } catch (error) {
     console.error('Error creating high motivation user:', error);
   }
 };
 
 // קריאה לפונקציה על מנת להוסיף את המשתמש עם רמת המוטיבציה הגבוהה
-
-createHighMotivat
 createHighMotivationUser();
